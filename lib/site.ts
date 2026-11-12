@@ -2,9 +2,9 @@ export const SITE_CONFIG = {
   name: "Stak",
   domain: "stak.co.in",
   url: "https://stak.co.in",
-  title: "Stak — The AI Search & Content Platform",
+  title: "Stak — Sounds like you. Not like AI. ($129/mo)",
   description:
-    "Stak is a $129/month alternative to Gehirn.md. Research markets, create brand-aligned content, and manage SEO, AEO, and GEO visibility workflows.",
+    "Stak is a $129/month alternative to Gehirn.md. Multi-agent research, brand voice context, article generation, and LLM tracking in one flat plan.",
   priceMonthly: "$129",
   priceValue: "129",
   priceCurrency: "USD",

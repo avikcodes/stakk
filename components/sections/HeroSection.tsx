@@ -1,161 +1,81 @@
-import Link from "next/link";
-import { ArrowRight, Compass, PenLine, Search, Workflow } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { SITE_CONFIG } from "@/lib/site";
+"use client";
 
-const WORKFLOW_CAPABILITIES = [
-  {
-    step: "01",
-    icon: Search,
-    title: "Market Research",
-    description:
-      "Research markets, topic demand, and competitive coverage before writing.",
-  },
-  {
-    step: "02",
-    icon: PenLine,
-    title: "Brand-Aligned Content",
-    description:
-      "Create structured articles and pages aligned with your brand voice.",
-  },
-  {
-    step: "03",
-    icon: Compass,
-    title: "SEO, AEO & GEO Visibility",
-    description:
-      "Improve visibility across traditional search and AI answer engines.",
-  },
-  {
-    step: "04",
-    icon: Workflow,
-    title: "AI-Search Workflows",
-    description:
-      "Manage briefs, editorial production, and ongoing updates in one workflow.",
-  },
-] as const;
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export function HeroSection() {
+  const router = useRouter();
+  const [url, setUrl] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (url.trim()) {
+      router.push(`/app?url=${encodeURIComponent(url.trim())}`);
+    } else {
+      router.push("/app");
+    }
+  };
+
   return (
-    <section
-      aria-labelledby="hero-heading"
-      className="cloud-atmosphere relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-32"
-    >
-      {/* Subtle architectural mist-horizon contour */}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 1440 320"
-        fill="none"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-44 w-full text-stone-200/45 sm:h-56"
-      >
-        <path
-          d="M0 240C240 180 420 280 720 220C1020 160 1200 240 1440 190V320H0V240Z"
-          fill="currentColor"
-          fillOpacity="0.22"
-        />
-        <path
-          d="M0 270C300 230 520 300 840 250C1120 206 1280 265 1440 240V320H0V270Z"
-          fill="#ffffff"
-          fillOpacity="0.65"
-        />
-      </svg>
-
-      <Container className="relative">
-        <div className="animate-fade-up mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-stone-200/90 bg-white/85 px-4 py-1.5 text-xs font-medium text-slate-700 shadow-2xs backdrop-blur-sm">
-            <span className="font-mono text-[#14181f]">
-              {SITE_CONFIG.priceMonthly}
-              {SITE_CONFIG.priceUnit}
-            </span>
-            <span className="text-stone-300" aria-hidden="true">
-              |
-            </span>
-            <span>Alternative to {SITE_CONFIG.competitorName}</span>
-          </div>
-
-          <h1
-            id="hero-heading"
-            className="mt-7 font-serif text-4xl font-normal tracking-[-0.025em] text-balance text-[#14181f] sm:text-6xl sm:leading-[1.06]"
-          >
-            {SITE_CONFIG.title}
+    <div className="flex w-full flex-col pt-6 pb-12 sm:pt-12 sm:pb-16">
+      <header className="flex flex-col">
+        <div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.12em] text-stone-600 mb-6 shadow-2xs">
+            <Sparkles className="h-3 w-3 text-stone-700" />
+            $129/mo Gehirn.md Alternative
+          </span>
+          <h1 className="font-serif text-5xl sm:text-6xl lg:text-[68px] font-normal leading-[1.05] tracking-[-0.025em] text-[#14181f]">
+            Sounds like you. Not like AI.
           </h1>
+        </div>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-pretty text-slate-600 sm:text-lg sm:leading-8">
-            Stak helps companies research markets, create brand-aligned content,
-            improve SEO, AEO, and GEO visibility, and manage AI-search content
-            workflows—for a flat{" "}
-            <span className="font-medium text-[#14181f]">
-              {SITE_CONFIG.priceMonthly}
-              {SITE_CONFIG.priceUnit}
-            </span>
-            .
-          </p>
-
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/pricing"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#14181f] px-6 py-3 text-sm font-medium text-white transition-all duration-150 hover:bg-[#232933] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14181f] focus-visible:ring-offset-2 sm:w-auto"
-            >
-              Start with Stak
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-            <Link
-              href="/features"
-              className="inline-flex w-full items-center justify-center rounded-lg border border-stone-300/90 bg-white/85 px-6 py-3 text-sm font-medium text-[#14181f] transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14181f] focus-visible:ring-offset-2 sm:w-auto"
-            >
-              See how it works
-            </Link>
-          </div>
-
-          <p className="mt-4 font-mono text-xs text-slate-500">
-            Flat {SITE_CONFIG.priceMonthly}
-            {SITE_CONFIG.priceUnit} pricing · Built for teams leaving complex tiers
+        <div>
+          <p className="mt-6 max-w-[560px] text-[15px] sm:text-[16px] leading-[1.7] text-stone-600 font-light">
+            Stak reads your site, your tone, and the facts you add. It deploys multi-agent research before drafting and asks before it guesses, so your voice and your knowledge stay in the draft. Search visibility is what that specific writing can earn.
           </p>
         </div>
 
-        {/* Restrained editorial workflow frame */}
-        <div className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-2xl border border-stone-200/90 bg-white/90 shadow-xs backdrop-blur-sm sm:mt-16">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-stone-200/80 bg-[#f8f8f6]/90 px-5 py-3">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-stone-300" aria-hidden="true" />
-              <span className="font-mono text-xs text-slate-600">
-                AI-Search &amp; Content Workflow
-              </span>
+        <div className="mt-8">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex h-13 sm:h-12 min-w-0 shrink-0 overflow-hidden rounded-xl border border-stone-300 bg-white focus-within:border-[#14181f] focus-within:ring-1 focus-within:ring-[#14181f] sm:flex-1 shadow-2xs transition-all">
+                <span className="flex shrink-0 items-center border-r border-stone-200 bg-stone-50/80 px-3.5 text-[14px] text-stone-500 font-mono select-none">
+                  https://
+                </span>
+                <input
+                  type="text"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="yourcompany.com"
+                  spellCheck="false"
+                  autoComplete="off"
+                  className="h-full w-full min-w-0 appearance-none bg-transparent px-3 text-[15px] text-[#14181f] placeholder:text-stone-400 focus:outline-none"
+                />
+              </div>
+              <button
+                type="submit"
+                className="group flex h-13 sm:h-12 items-center justify-center gap-2 rounded-xl bg-[#14181f] px-6 text-[15px] font-medium text-white transition-all hover:bg-stone-800 active:scale-[0.98] whitespace-nowrap shadow-xs"
+              >
+                <span>Start with Stak</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </button>
             </div>
-            <span className="font-mono text-xs font-medium text-[#14181f]">
-              {SITE_CONFIG.priceMonthly}
-              {SITE_CONFIG.priceUnit}
-            </span>
-          </div>
+          </form>
 
-          <div className="grid divide-y divide-stone-200/80 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-y-0">
-            {WORKFLOW_CAPABILITIES.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="p-6 sm:odd:border-r sm:odd:border-stone-200/80 sm:[&:nth-child(-n+2)]:border-b sm:[&:nth-child(-n+2)]:border-stone-200/80 lg:odd:border-r-0 lg:[&:nth-child(-n+2)]:border-b-0"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-stone-200 bg-[#fbfbfa] text-[#14181f]">
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </span>
-                    <span className="font-mono text-xs text-slate-400">
-                      {item.step}
-                    </span>
-                  </div>
-                  <h2 className="mt-4 text-sm font-semibold tracking-tight text-[#14181f]">
-                    {item.title}
-                  </h2>
-                  <p className="mt-1.5 text-sm leading-6 text-slate-600">
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
+          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-stone-500 font-mono">
+            <span>One flat plan: $129/mo</span>
+            <span className="text-stone-300">·</span>
+            <span>250 articles/mo</span>
+            <span className="text-stone-300">·</span>
+            <span>20 projects</span>
+            <span className="text-stone-300">·</span>
+            <span>100 keywords</span>
+            <span className="text-stone-300">·</span>
+            <span>LLM Tracking</span>
           </div>
         </div>
-      </Container>
-    </section>
+      </header>
+    </div>
   );
 }

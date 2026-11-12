@@ -2,22 +2,19 @@ import type { Metadata } from "next";
 import { SITE_CONFIG } from "@/lib/site";
 import { getHomepageStructuredData } from "@/lib/structured-data";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { AtmosphericSky } from "@/components/ui/AtmosphericSky";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { WhatStakDoesSection } from "@/components/sections/WhatStakDoesSection";
-import { ResearchSection } from "@/components/sections/ResearchSection";
-import { ContentSection } from "@/components/sections/ContentSection";
-import { BrandContextSection } from "@/components/sections/BrandContextSection";
-import { AiSearchGeoSection } from "@/components/sections/AiSearchGeoSection";
-import { WorkflowSection } from "@/components/sections/WorkflowSection";
-import { UseCasesSection } from "@/components/sections/UseCasesSection";
-import { IntegrationsSection } from "@/components/sections/IntegrationsSection";
+import { LogoMarqueeSection } from "@/components/sections/LogoMarqueeSection";
+import { ToolIntroSection } from "@/components/sections/ToolIntroSection";
+import { CoreCapabilitiesSection } from "@/components/sections/CoreCapabilitiesSection";
+import { ResultsSection } from "@/components/sections/ResultsSection";
 import { PricingSection } from "@/components/sections/PricingSection";
-import { ComparisonSection } from "@/components/sections/ComparisonSection";
+import { PhilosophySection } from "@/components/sections/PhilosophySection";
+import { IntegrationsSection } from "@/components/sections/IntegrationsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
-import { ResourcesSection } from "@/components/sections/ResourcesSection";
-import { TrustSection } from "@/components/sections/TrustSection";
+import { FinalCtaSection } from "@/components/sections/FinalCtaSection";
 
 export const metadata: Metadata = {
   title: {
@@ -31,32 +28,40 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative min-h-screen text-[#14181f] overflow-x-hidden selection:bg-[#14181f] selection:text-white">
+      {/* Soft atmospheric fixed sky backdrop matching Gehirn's ghibli sky treatment */}
+      <AtmosphericSky />
+
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-[#14181f] focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
       >
         Skip to content
       </a>
+
       <JsonLd data={getHomepageStructuredData()} />
-      <SiteHeader />
-      <main id="main-content" className="flex-1">
-        <HeroSection />
-        <WhatStakDoesSection />
-        <ResearchSection />
-        <ContentSection />
-        <BrandContextSection />
-        <AiSearchGeoSection />
-        <WorkflowSection />
-        <UseCasesSection />
-        <IntegrationsSection />
-        <PricingSection />
-        <ComparisonSection />
-        <FaqSection />
-        <ResourcesSection />
-        <TrustSection />
-      </main>
-      <SiteFooter />
+
+      {/* Centered editorial panel container matching Gehirn's signature layout */}
+      <div className="flex w-full flex-col sm:py-10 md:py-12">
+        <div className="mx-auto flex min-h-[100dvh] w-full max-w-[740px] lg:max-w-[840px] flex-col bg-white/70 backdrop-blur-md sm:min-h-[calc(100vh-6rem)] sm:rounded-2xl sm:border sm:border-stone-200/80 sm:shadow-[0_20px_60px_rgba(20,24,31,0.06)]">
+          <SiteHeader />
+
+          <main id="main-content" className="flex min-h-0 flex-1 flex-col px-6 pt-4 pb-6 sm:py-8">
+            <HeroSection />
+            <LogoMarqueeSection />
+            <ToolIntroSection />
+            <CoreCapabilitiesSection />
+            <ResultsSection />
+            <PricingSection />
+            <PhilosophySection />
+            <IntegrationsSection />
+            <FaqSection />
+            <FinalCtaSection />
+          </main>
+
+          <SiteFooter />
+        </div>
+      </div>
     </div>
   );
 }

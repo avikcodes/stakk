@@ -1,92 +1,154 @@
-import { Section } from "@/components/ui/Section";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { SITE_CONFIG } from "@/lib/site";
+"use client";
 
-const FAQ_ITEMS = [
+import { useState } from "react";
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const FAQ_ITEMS: FaqItem[] = [
   {
     question: "What is Stak?",
     answer:
-      "Stak is an AI search and content platform that helps companies research markets, generate brand-aligned content, improve SEO, AEO, and GEO visibility, and manage AI-search content workflows for $129/month.",
+      "Stak is a research and content creation platform that brings multi-agent research, article generation, LLM tracking, and brand interpretation together in one flat $129/month plan.",
   },
   {
-    question: "What is GEO?",
+    question: "What can I create with Stak?",
     answer:
-      "GEO stands for Generative Engine Optimization. It focuses on structuring and writing clear, verifiable content so AI-powered search and answer systems can understand and reference your company accurately.",
+      "You can create long-form articles, conduct multi-agent brainstorms and research briefs, track how language models interpret your brand, and manage work across 20 distinct projects.",
   },
   {
-    question: "What is AI search optimization?",
+    question: "How does Stak's multi-agent research work?",
     answer:
-      "AI search optimization combines traditional SEO fundamentals with direct-answer structure (AEO) and generative search clarity (GEO) so your pages are easy to discover across both search engines and AI assistants.",
+      "Stak coordinates specialized agents in parallel to analyze your target keywords, brainstorm angles, evaluate competitor coverage, and synthesize insights before drafting begins.",
   },
   {
-    question: "How does Stak work?",
+    question: "How does Stak help with content creation?",
     answer:
-      "Stak starts by learning your website, products, positioning, and writing style. It then runs a five-stage workflow—Research, Strategy, Writing, Optimization, and Review—to turn search opportunities into publish-ready drafts.",
+      "Stak uses research outputs and your company context to produce comprehensive article drafts aligned with your brand voice, with full human-in-the-loop review.",
+  },
+  {
+    question: "What does LLM Tracking do?",
+    answer:
+      "LLM Tracking monitors how major language models answer category, competitor, and brand queries to observe how your company is cited and represented across AI platforms.",
+  },
+  {
+    question: "What is Brand Interpretation?",
+    answer:
+      "Brand Interpretation analyzes how AI models describe your company, including your core positioning, product capabilities, and market categorization.",
+  },
+  {
+    question: "How many projects can I create?",
+    answer:
+      "Stak includes up to 20 projects, allowing you to organize different brands, clients, or content initiatives in dedicated workspaces.",
+  },
+  {
+    question: "How many articles can I create each month?",
+    answer:
+      "Every subscription includes up to 250 articles per month.",
+  },
+  {
+    question: "How many keywords can I research?",
+    answer:
+      "You can research and track up to 100 keywords per month within your plan.",
   },
   {
     question: "How does Stak compare with Gehirn.md?",
-    answer: `Stak is a $129/month alternative to ${SITE_CONFIG.competitorName}. Instead of comparing multiple plan tiers, Stak packages multi-agent research, brand context, content generation, AI visibility tracking, and publishing workflows under one flat monthly price.`,
+    answer:
+      "Stak provides the core capabilities of Gehirn.md—content creation, multi-agent research, LLM tracking, and brand interpretation—in one flat $129/month plan rather than four separate pricing tiers.",
   },
   {
     question: "Who is Stak for?",
     answer:
-      "Stak is designed for B2B marketing teams, content leads, founders, and agencies that want one organized workflow for market research, brand-consistent writing, and search visibility.",
-  },
-  {
-    question: "Does Stak monitor AI visibility?",
-    answer:
-      "Yes. LLM and AI visibility tracking is included in the $129/month Stak plan alongside SEO, AEO, and GEO content workflows.",
-  },
-  {
-    question: "Does Stak work with AI search engines?",
-    answer:
-      "Yes. Stak helps teams research topics, structure direct answers, and maintain consistent brand context so content works well for both traditional search engines and modern AI search systems.",
+      "Stak is built for marketing teams, content leads, founders, and agencies that need research-backed content production, 20 projects, 250 articles per month, and LLM tracking in one subscription.",
   },
   {
     question: "How much does Stak cost?",
-    answer: `Stak has one plan priced at ${SITE_CONFIG.priceMonthly}${SITE_CONFIG.priceUnit}. All core research, brand context, content generation, visibility tracking, and export workflows are part of that single plan.`,
-  },
-  {
-    question: "Can agencies use Stak?",
     answer:
-      "Yes. Agencies managing market research, brand voice, content projects, and SEO/AEO/GEO workflows for client websites can use Stak to keep research and writing aligned.",
+      "Stak costs $129 per month. All core features—250 articles/month, 20 projects, 100 keywords, multi-agent research, LLM tracking, and brand interpretation—are included in that single plan.",
   },
-  {
-    question: "Can I try Stak?",
-    answer: `This site is the public marketing home for ${SITE_CONFIG.name} at ${SITE_CONFIG.url}. Enrollment details for the ${SITE_CONFIG.priceMonthly}${SITE_CONFIG.priceUnit} plan will be published here as public onboarding opens.`,
-  },
-] as const;
+];
 
 export function FaqSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
-    <Section id="faq" labelledBy="faq-heading" muted>
-      <div className="grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-24">
-            <SectionHeader
-              headingId="faq-heading"
-              eyebrow="FAQ"
-              title="Frequently asked questions"
-              description={`Direct answers about ${SITE_CONFIG.name}, GEO, AI search optimization, and our ${SITE_CONFIG.priceMonthly}${SITE_CONFIG.priceUnit} plan.`}
-            />
+    <div className="flex flex-col">
+      <div className="-mx-6 h-px bg-stone-200/80" />
+      <section
+        id="faq"
+        aria-labelledby="landing-faq-heading"
+        className="py-14 sm:py-18"
+      >
+        <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+          {/* Left Column: Eyebrow + Large Serif Heading */}
+          <div className="md:col-span-5">
+            <div className="md:sticky md:top-24">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-stone-500 font-medium">
+                FAQ
+              </p>
+              <h2
+                id="landing-faq-heading"
+                className="mt-3 font-serif text-3xl sm:text-4xl font-normal leading-[1.15] tracking-[-0.015em] text-[#14181f]"
+              >
+                Common questions.
+              </h2>
+            </div>
+          </div>
+
+          {/* Right Column: Editorial Accordion Stack */}
+          <div className="md:col-span-7">
+            <div className="divide-y divide-stone-200/80 border-y border-stone-200/80">
+              {FAQ_ITEMS.map((item, index) => {
+                const isOpen = openIndex === index;
+                return (
+                  <div key={item.question} className="transition-colors">
+                    <button
+                      type="button"
+                      id={`faq-question-${index}`}
+                      onClick={() => toggle(index)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${index}`}
+                      className="group flex w-full items-start justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2"
+                    >
+                      <span className="text-[15px] sm:text-[16px] font-medium text-[#14181f] leading-snug tracking-[-0.01em] transition-colors group-hover:text-stone-900 pr-2">
+                        {item.question}
+                      </span>
+                      <span className="relative mt-1 flex h-4 w-4 shrink-0 items-center justify-center text-stone-400 transition-colors group-hover:text-stone-700">
+                        <span
+                          className={`absolute h-3.5 w-[1.5px] bg-current transition-transform duration-200 ease-out ${
+                            isOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
+                          }`}
+                        />
+                        <span className="h-[1.5px] w-3.5 bg-current" />
+                      </span>
+                    </button>
+                    <div
+                      id={`faq-answer-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-question-${index}`}
+                      className={`grid transition-[grid-template-rows] duration-250 ease-out ${
+                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="pb-5 pt-1 text-[13px] sm:text-[14px] leading-relaxed text-stone-600 font-light">
+                          {item.answer}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-
-        <div className="lg:col-span-8">
-          <dl className="divide-y divide-stone-200/90 rounded-2xl border border-stone-200/90 bg-white">
-            {FAQ_ITEMS.map((item) => (
-              <div key={item.question} className="p-6 sm:px-8 sm:py-6">
-                <dt className="text-base font-semibold text-[#14181f]">
-                  {item.question}
-                </dt>
-                <dd className="mt-2 text-sm leading-6 text-slate-600">
-                  {item.answer}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-    </Section>
+      </section>
+    </div>
   );
 }
